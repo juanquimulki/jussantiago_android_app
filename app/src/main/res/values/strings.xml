@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Mi Oficina Virtual</string>
+    <string name="API_KEY">soft_aplica_2538</string>
+    <string name="creditos">Desarrollo de Sistemas
+        \nProsecretaría de Informática
+        \nPoder Judicial de Santiago del Estero
+        \nArgentina - 2019</string>
+
+    <string name="url_cedulas">http://oficinavirtual.jussantiago.gov.ar/cedulas/</string>
+    <string name="url_gview">https://docs.google.com/gview?embedded=true</string>
+    <string name="url_cedula">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/cedula</string>
+    <string name="url_datos">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/datos</string>
+    <string name="url_texto">https://oficinavirtual.jussantiago.gov.ar/mobile/texto.php</string>
+    <string name="url_expedientes">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/expedientes</string>
+    <string name="url_busqueda">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/busqueda</string>
+    <string name="url_login">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/login</string>
+    <string name="url_version">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/version</string>
+    <string name="url_caratula">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/caratula</string>
+    <string name="url_movimientos">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/movimientos</string>
+    <string name="url_notificaciones">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/notificaciones</string>
+
+    <string name="acerca_de">Desarrollado por:
+        \n\nIng. Juan M. Mulki A.
+        \nDesarrollo de Sistemas
+        \nPODER JUDICIAL
+        \n\nSantiago del Estero, Argentina
+        \nMayo 2019</string>
+    <string name="aguarde">Aguarde por favor...</string>
+    <string name="error">Se ha producido un error...</string>
+    <string name="respuesta_null">Respuesta null</string>
+    <string name="busque">Busque por número o palabra...</string>
+    <string name="buscando">Buscando...</string>
+    <string name="bienvenido">Bienvenido/a!</string>
+    <string name="version">Versión:</string>
+    <string name="cerrar_sesion">¿Confirma que desea cerrar su sesión?</string>
+    <string name="movimientos_anio">Sólo se visualizan documentos del corriente año</string>
+    <string name="movimientos_adjunto">Movimiento sin archivo adjunto</string>
+    <string name="sin_conexion">Verifique su conexión a Internet e intente nuevamente</string>
+</resources>
