@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "43274183939",
+    "firebase_url": "https://autoconsulta-3595c.firebaseio.com",
+    "project_id": "autoconsulta-3595c",
+    "storage_bucket": "autoconsulta-3595c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43274183939:android:0481844547e53bb7",
+        "android_client_info": {
+          "package_name": "gov.jussantiago.jmulki.autoconsulta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43274183939-o0uhadtj92e05op7j70e8qmjjjmajau5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gov.jussantiago.jmulki.autoconsulta",
+            "certificate_hash": "6ceadb872dbaddc8bf327c9ceb5c6acaf1e35b97"
+          }
+        },
+        {
+          "client_id": "43274183939-5386qj8o22lqesq43bhnmkuv98t4g3k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2mbaOFfXzOkp2LCvX7qJZzes3gDhTbwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43274183939-5386qj8o22lqesq43bhnmkuv98t4g3k6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
