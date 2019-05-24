@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.session.MediaSession;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
@@ -31,14 +33,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Data Body: " + remoteMessage.getData());
             String title = remoteMessage.getData().get("title").toString();
             String body = remoteMessage.getData().get("body").toString();
+            String numero = remoteMessage.getData().get("numero").toString();
+            String fuero = remoteMessage.getData().get("fuero").toString();
 
             NotificationCompat.Builder mBuilder;
             NotificationManager mNotifyMgr =(NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
 
             int icono = R.mipmap.balanza1;
-            Intent i=new Intent(MyFirebaseMessagingService.this, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(MyFirebaseMessagingService.this, 0, i, 0);
 
+            Intent i=new Intent(MyFirebaseMessagingService.this, MovimientosActivity.class);
+
+            Log.i("Message Data: ",numero);
+            i.putExtra("numero",numero);
+            i.putExtra("fuero",fuero);
+
+            int id = createID();
+            PendingIntent pendingIntent = PendingIntent.getActivity(MyFirebaseMessagingService.this, id, i, 0);
+
+            MediaSessionCompat mMediaSession = new MediaSessionCompat(this,"hola");
+            NotificationCompat.MediaStyle mMediaStyle =  new NotificationCompat.MediaStyle();
             mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())
                     .setContentIntent(pendingIntent)
                     .setColor(getResources().getColor(R.color.fondo_autoconsulta))
@@ -47,9 +60,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setContentText(body)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setVibrate(new long[] {100, 250, 100, 500})
-                    .setAutoCancel(true);
+                    .setAutoCancel(true)
+                    .addAction(R.mipmap.close,"Cerrar",pendingIntent);
 
-            int id = createID();
             mNotifyMgr.notify(id, mBuilder.build());
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
@@ -74,7 +87,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public int createID(){
         Date now = new Date();
-        int id = Integer.parseInt(new SimpleDateFormat("ddHHmmssSS",  Locale.US).format(now));
+        int id = Integer.parseInt(new SimpleDateFormat("ddHHmmssS",  Locale.US).format(now));
         return id;
     }
 }

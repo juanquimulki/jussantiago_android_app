@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class MovimientosActivity extends AppCompatActivity {
         btnCaratula = findViewById(R.id.btnCaratula);
         numero = Integer.parseInt(getIntent().getExtras().getString("numero"));
         fuero = getIntent().getExtras().getString("fuero");
+        Log.i("Message Data: ",numero.toString());
 
         txtNumero = findViewById(R.id.txtNumero);
         txtActor = findViewById(R.id.txtRemitente);
@@ -159,7 +161,7 @@ public class MovimientosActivity extends AppCompatActivity {
                             Integer idvar = movimiento.getInt("idvar");
                             Integer anio = Integer.parseInt(fecha.substring(6,10));
 
-                            datos.add(new Movimiento(fecha,estado,observaciones,cgoestado,idvar,fuero,anio));
+                            datos.add(new Movimiento(numero,fecha,estado,observaciones,cgoestado,idvar,fuero,anio));
                         }
 
                         // Crear un nuevo adaptador
@@ -213,7 +215,7 @@ public class MovimientosActivity extends AppCompatActivity {
             TextView lblObservaciones = (TextView)item.findViewById(R.id.lblObservaciones);
             lblObservaciones.setText(datos.get(position).getObservaciones());
 
-            if ((datos.get(position).getCgoestado()==26) || (datos.get(position).getCgoestado()==118)) {
+            if ((datos.get(position).getCgoestado()==26) || (datos.get(position).getCgoestado()==118) || (datos.get(position).getCgoestado()==232)) {
                 lblObservaciones.setPaintFlags(lblObservaciones.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 lblObservaciones.setTextColor(Color.BLUE);
             }
@@ -233,6 +235,13 @@ public class MovimientosActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(MovimientosActivity.this, getString(R.string.movimientos_anio), Toast.LENGTH_SHORT).show();
                         }
+                    }
+                    if (datos.get(position).getCgoestado()==232) {
+                        Log.i("NroExpediente",datos.get(position).getNroexpediente().toString());
+                        Intent intent = new Intent(view.getContext(), CedulaCivilActivity.class);
+                        intent.putExtra("nroexpediente", datos.get(position).getNroexpediente().toString());
+                        intent.putExtra("observaciones", datos.get(position).getObservaciones());
+                        view.getContext().startActivity(intent);
                     }
                     else {
                         Toast.makeText(MovimientosActivity.this, getString(R.string.movimientos_adjunto), Toast.LENGTH_SHORT).show();

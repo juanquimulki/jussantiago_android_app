@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("Firebase", "Actual token " + refreshedToken);
 
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setEnabled(false);
@@ -69,6 +67,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String usuario = sharedPref.getString("usuario",null);
         String clave = sharedPref.getString("clave",null);
+
+        String numSerie = sharedPref.getString("numSerie",null);
+        if (numSerie==null) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("numSerie", UUID.randomUUID().toString().replace("-","")).commit();
+            Log.i("proceso token","numero de serie creado");
+        }
+        else
+            Log.i("proceso token","numero de serie ya existe");
 
         txtUsuario.setText(usuario);
         txtClave.setText(clave);
@@ -172,6 +179,13 @@ public class MainActivity extends AppCompatActivity {
                             editor.putInt("casillero", casillero);
                             editor.putString("token", token);
                             editor.commit();
+
+                            String refreshedToken = sharedPref.getString("refreshedToken",null);
+                            if (refreshedToken==null)
+                                actualizarToken();
+                            else
+                                Log.i("proceso token","token ya existe");
+
                             progressBar.setVisibility(View.GONE);
 
                             Toast.makeText(MainActivity.this, getString(R.string.bienvenido), Toast.LENGTH_SHORT).show();
@@ -188,6 +202,54 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void actualizarToken() {
+        final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        Integer codigo = sharedPref.getInt("codigo",0);
+        String token = sharedPref.getString("token",null);
+        String numSerie = sharedPref.getString("numSerie",null);
+
+        if (refreshedToken!=null && !refreshedToken.isEmpty()) {
+            Log.d("Firebase", "Actual token " + refreshedToken);
+
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("codigo", codigo.toString());
+            params.put("numserie", numSerie);
+            params.put("refreshedToken", refreshedToken);
+
+            ObjetoVolley volley = new ObjetoVolley(
+                    MainActivity.this,
+                    getString(R.string.url_acttoken),
+                    params,
+                    Request.Method.POST,
+                    token
+            );
+
+            volley.execute(new ObjetoVolley.VolleyCallback() {
+                @Override
+                public void onSuccessResponse(JSONObject objeto) {
+                    if (objeto != null) {
+                        try {
+                            String mensaje = objeto.getString("message");
+                            Log.i("proceso token", mensaje);
+
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("refreshedToken",refreshedToken).commit();
+                        } catch (Exception e) {
+                            Toast.makeText(MainActivity.this, getString(R.string.error) + " (Cód: Token01)", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(MainActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+        else {
+            Log.i("proceso token","sin token");
+        }
     }
 
     private void abrirActividad() {

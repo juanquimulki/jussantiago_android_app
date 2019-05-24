@@ -5,6 +5,7 @@ package gov.jussantiago.jmulki.autoconsulta;
  */
 
 public class Movimiento {
+    private Integer nroexpediente;
     private String fecha;
     private String estado;
     private String observaciones;
@@ -13,7 +14,8 @@ public class Movimiento {
     private String cgodestino;
     private Integer anio;
 
-    public Movimiento(String fecha, String estado, String observaciones, Integer cgoestado, Integer idvar, String cgodestino, Integer anio) {
+    public Movimiento(Integer nroexpediente, String fecha, String estado, String observaciones, Integer cgoestado, Integer idvar, String cgodestino, Integer anio) {
+        this.nroexpediente = nroexpediente;
         this.fecha = fecha;
         this.estado = estado;
         this.observaciones = observaciones;
@@ -21,6 +23,14 @@ public class Movimiento {
         this.idvar = idvar;
         this.cgodestino = cgodestino;
         this.anio = anio;
+    }
+
+    public Integer getNroexpediente() {
+        return nroexpediente;
+    }
+
+    public void setNroexpediente(Integer nroexpediente) {
+        this.nroexpediente = nroexpediente;
     }
 
     public String getFecha() {

@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_height="140dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -19,49 +19,99 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo_poder_judicial" />
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="110dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
 
-        <Button
-            android:id="@+id/button"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:onClick="expedientes"
-            android:text="Mis Expedientes" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button2"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_img1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/btn_expedientes"
+                    android:onClick="expedientes"
+                    android:text="Expedientes"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/button_img2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/btn_notificaciones"
+                    android:onClick="notificaciones"
+                    android:text="Notificaciones"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:onClick="notificaciones"
-            android:text="Mis Notificaciones" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:onClick="datos"
-            android:text="Mis Datos Personales" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="cerrar"
-            android:text="Cerrar Sesión"
-            android:textColor="@android:color/holo_red_dark" />
+                <Button
+                    android:id="@+id/button_img3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:onClick="datos"
+                    android:drawableTop="@mipmap/btn_datos"
+                    android:text="Mis Datos"
+                    android:textSize="10sp" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/button_img4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/iconfinder_law"
+                    android:text="OK"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="cerrar"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Cerrar Sesión"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <TextView
         android:id="@+id/txtCreditos"
@@ -76,4 +126,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
