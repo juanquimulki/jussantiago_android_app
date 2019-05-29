@@ -236,6 +236,7 @@ public class MovimientosActivity extends AppCompatActivity {
                             Toast.makeText(MovimientosActivity.this, getString(R.string.movimientos_anio), Toast.LENGTH_SHORT).show();
                         }
                     }
+                    else
                     if (datos.get(position).getCgoestado()==232) {
                         Log.i("NroExpediente",datos.get(position).getNroexpediente().toString());
                         Intent intent = new Intent(view.getContext(), CedulaCivilActivity.class);

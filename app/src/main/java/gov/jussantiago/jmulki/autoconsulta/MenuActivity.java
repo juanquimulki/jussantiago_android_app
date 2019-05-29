@@ -1,14 +1,22 @@
 package gov.jussantiago.jmulki.autoconsulta;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,6 +67,7 @@ public class MenuActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
     }
 
     public void expedientes(View v) {
@@ -145,5 +154,39 @@ public class MenuActivity extends AppCompatActivity {
                 }
             });
     }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        if(menu instanceof MenuBuilder){
+            MenuBuilder m = (MenuBuilder) menu;
+            m.setOptionalIconsVisible(true);
+        }
+
+        return true;
+    }
+
+    /*public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item1:
+                Intent i = new Intent(this, Alumnos.class);
+                startActivity(i);
+                break;
+            case R.id.item2:
+                Intent j = new Intent(this, Porcentajes.class);
+                startActivity(j);
+                break;
+            case R.id.item3:
+                escribirRegistro();
+                //Intent k = new Intent(this, Registro.class);
+                //startActivity(j);
+                break;
+        }
+        return true;
+    }*/
+
 
 }

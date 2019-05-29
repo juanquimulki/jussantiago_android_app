@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item1_expedientes"
+        android:title="Mis Expedientes"></item>
+    <item
+        android:id="@+id/item2_cedulas"
+        android:title="Mis Cédulas"></item>
+    <item
+        android:id="@+id/item3_cedulascivil"
+        android:title="Mis Cédulas (Civil)"></item>
+    <item
+        android:id="@+id/item3_avisos"
+        android:title="Mis Avisos"></item>
+    <item
+        android:id="@+id/item4_datos"
+        android:title="Mis Datos Personales"></item>
+    <item
+        android:id="@+id/item5_configuracion"
+        android:title="Configuración"></item>
+</menu>
