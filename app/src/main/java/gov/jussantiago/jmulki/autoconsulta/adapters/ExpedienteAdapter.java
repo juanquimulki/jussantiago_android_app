@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.adapters;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import gov.jussantiago.jmulki.autoconsulta.activities.MovimientosActivity;
+import gov.jussantiago.jmulki.autoconsulta.R;
+import gov.jussantiago.jmulki.autoconsulta.classes.Expediente;
 
 /**
  * Created by jmulki on 17/04/2019.
@@ -28,8 +32,8 @@ public class ExpedienteAdapter extends RecyclerView.Adapter<ExpedienteAdapter.Ex
         public ExpedienteViewHolder(View v) {
             super(v);
             txtNumero = v.findViewById(R.id.txtNumero);
-            txtActor = v.findViewById(R.id.txtRemitente);
-            txtDemandado = v.findViewById(R.id.txtDemandado);
+            txtActor = v.findViewById(R.id.txtCaratula);
+            txtDemandado = v.findViewById(R.id.txtFecha);
             txtCausa = v.findViewById(R.id.txtCausa);
             txtFuero = v.findViewById(R.id.txtFuero);
         }

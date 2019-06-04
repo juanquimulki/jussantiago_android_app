@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.adapters;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import gov.jussantiago.jmulki.autoconsulta.R;
+import gov.jussantiago.jmulki.autoconsulta.activities.CedulaActivity;
+import gov.jussantiago.jmulki.autoconsulta.classes.Notificacion;
 
 /**
  * Created by jmulki on 17/04/2019.
@@ -27,7 +31,7 @@ public class NotificacionAdapter extends RecyclerView.Adapter<NotificacionAdapte
         public NotificacionViewHolder(View v) {
             super(v);
             txtNumero = v.findViewById(R.id.txtNumero);
-            txtRemitente = v.findViewById(R.id.txtRemitente);
+            txtRemitente = v.findViewById(R.id.txtCaratula);
             txtDatos = v.findViewById(R.id.txtDatos);
             txtFuero = v.findViewById(R.id.txtFuero);
         }

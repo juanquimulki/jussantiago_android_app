@@ -6,22 +6,23 @@
         \nPoder Judicial de Santiago del Estero
         \nArgentina - 2019</string>
 
-    <string name="url_cedulas">http://oficinavirtual.jussantiago.gov.ar/cedulas/</string>
-    <string name="url_firmados">http://oficinavirtual.jussantiago.gov.ar/firmados/</string>
+    <string name="url_cedulas">https://oficinavirtual.jussantiago.gov.ar/cedulas/</string>
+    <string name="url_firmados">https://oficinavirtual.jussantiago.gov.ar/firmados/</string>
     <string name="url_gview">http://docs.google.com/gview?embedded=true</string>
-    <string name="url_cedula">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/cedula</string>
-    <string name="url_cedula_civil">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/cedula_civil</string>
-    <string name="url_datos">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/datos</string>
-    <string name="url_texto">http://oficinavirtual.jussantiago.gov.ar/mobile/texto.php</string>
-    <string name="url_expedientes">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/expedientes</string>
-    <string name="url_busqueda">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/busqueda</string>
-    <string name="url_login">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/login</string>
-    <string name="url_version">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/version</string>
-    <string name="url_caratula">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/caratula</string>
-    <string name="url_movimientos">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/movimientos</string>
-    <string name="url_notificaciones">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/notificaciones</string>
-    <string name="url_acttoken">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/actualizar_token</string>
-    <string name="url_elitoken">http://oficinavirtual.jussantiago.gov.ar/mobile/index.php/eliminar_token</string>
+    <string name="url_cedula">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/cedula</string>
+    <string name="url_cedula_civil">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/cedula_civil</string>
+    <string name="url_datos">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/datos</string>
+    <string name="url_texto">https://oficinavirtual.jussantiago.gov.ar/mobile/texto.php</string>
+    <string name="url_expedientes">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/expedientes</string>
+    <string name="url_busqueda">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/busqueda</string>
+    <string name="url_login">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/login</string>
+    <string name="url_version">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/version</string>
+    <string name="url_caratula">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/caratula</string>
+    <string name="url_movimientos">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/movimientos</string>
+    <string name="url_notificaciones">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/notificaciones</string>
+    <string name="url_notificacionescivil">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/notificaciones_civil</string>
+    <string name="url_acttoken">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/actualizar_token</string>
+    <string name="url_elitoken">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/eliminar_token</string>
 
     <string name="acerca_de">Desarrollado por:
         \n\nIng. Juan M. Mulki A.

@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+import gov.jussantiago.jmulki.autoconsulta.R;
+import gov.jussantiago.jmulki.autoconsulta.classes.Movimiento;
 
 public class MovimientosActivity extends AppCompatActivity {
 
@@ -66,8 +70,8 @@ public class MovimientosActivity extends AppCompatActivity {
         Log.i("Message Data: ",numero.toString());
 
         txtNumero = findViewById(R.id.txtNumero);
-        txtActor = findViewById(R.id.txtRemitente);
-        txtDemandado = findViewById(R.id.txtDemandado);
+        txtActor = findViewById(R.id.txtCaratula);
+        txtDemandado = findViewById(R.id.txtFecha);
         txtCausa = findViewById(R.id.txtCausa);
         txtFecha = findViewById(R.id.txtFecha);
         txtFuero = findViewById(R.id.txtFuero);
@@ -101,6 +105,7 @@ public class MovimientosActivity extends AppCompatActivity {
             public void onSuccessResponse(JSONObject objeto){
                 if (objeto!=null) {
                     try {
+                        Log.e("error",objeto.toString());
                         JSONArray arreglo = objeto.getJSONArray("expediente");
 
                         JSONObject expediente = arreglo.getJSONObject(0);
@@ -118,6 +123,7 @@ public class MovimientosActivity extends AppCompatActivity {
                         txtFecha.setText(fecha);
                         txtFuero.setText(fuero);
                     } catch (JSONException e) {
+                        e.printStackTrace();
                         Toast.makeText(MovimientosActivity.this, getString(R.string.error) + " (Cód: Mov01)", Toast.LENGTH_SHORT).show();
                     }
                 }

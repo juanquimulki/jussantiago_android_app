@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.classes;
 
 import android.view.View;
 

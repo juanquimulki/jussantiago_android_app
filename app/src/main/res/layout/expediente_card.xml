@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/txtRemitente"
+                    android:id="@+id/txtCaratula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -54,7 +54,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtNumero" />
 
                 <TextView
-                    android:id="@+id/txtDemandado"
+                    android:id="@+id/txtFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -64,7 +64,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/imageView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtRemitente" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtCaratula" />
 
                 <TextView
                     android:id="@+id/txtCausa"
@@ -79,7 +79,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDemandado" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtFecha" />
 
             </LinearLayout>
 

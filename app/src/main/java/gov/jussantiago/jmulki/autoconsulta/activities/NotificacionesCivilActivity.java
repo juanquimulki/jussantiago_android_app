@@ -1,11 +1,12 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.activities;
 
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,7 +23,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotificacionesActivity extends AppCompatActivity {
+import gov.jussantiago.jmulki.autoconsulta.R;
+import gov.jussantiago.jmulki.autoconsulta.adapters.NotificacionAdapter;
+import gov.jussantiago.jmulki.autoconsulta.adapters.NotificacionCivilAdapter;
+import gov.jussantiago.jmulki.autoconsulta.classes.Notificacion;
+import gov.jussantiago.jmulki.autoconsulta.classes.NotificacionCivil;
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+
+public class NotificacionesCivilActivity extends AppCompatActivity {
 
     TextView txtAbogado;
     ProgressBar progressBar;
@@ -38,9 +46,9 @@ public class NotificacionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notificaciones);
+        setContentView(R.layout.activity_notificaciones_civil);
 
-        this.setTitle(getString(R.string.app_name) + " - Notificaciones");
+        this.setTitle(getString(R.string.app_name) + " - Notificaciones Civil");
 
         txtAbogado = findViewById(R.id.txtAbogado);
 
@@ -73,8 +81,8 @@ public class NotificacionesActivity extends AppCompatActivity {
         params.put("casillero", casillero.toString());
 
         ObjetoVolley volley = new ObjetoVolley(
-                NotificacionesActivity.this,
-                getString(R.string.url_notificaciones),
+                NotificacionesCivilActivity.this,
+                getString(R.string.url_notificacionescivil),
                 params,
                 Request.Method.POST,
                 token
@@ -90,30 +98,29 @@ public class NotificacionesActivity extends AppCompatActivity {
                         for (int i=0; i<arreglo.length(); i++) {
                             JSONObject notificacion = arreglo.getJSONObject(i);
                             Integer numero = notificacion.getInt("numero");
-                            String remitente = notificacion.getString("remitente");
-                            String expediente = notificacion.getString("expediente");
-                            String fuero = notificacion.getString("fuero");
+                            String caratula = notificacion.getString("caratula");
                             String fecha = notificacion.getString("fecha");
-                            String archivo = notificacion.getString("archivo");
-
-                            items.add(new Notificacion(numero,remitente,expediente,fuero,fecha,archivo));
+                            String cgodestino = notificacion.getString("cgodestino");
+                            String observaciones = notificacion.getString("observaciones");
+                            items.add(new NotificacionCivil(numero,caratula,fecha,cgodestino,observaciones));
                         }
                         // Crear un nuevo adaptador
-                        adapter = new NotificacionAdapter(items);
+                        adapter = new NotificacionCivilAdapter(items);
                         recycler.setAdapter(adapter);
 
                         progressBar.setVisibility(View.GONE);
                     } catch (JSONException e) {
-                        Toast.makeText(NotificacionesActivity.this, getString(R.string.error) + " (Cód: Not01)", Toast.LENGTH_SHORT).show();
+                        Log.i("error","error");
+                        e.printStackTrace();
+                        Toast.makeText(NotificacionesCivilActivity.this, getString(R.string.error) + " (Cód: Not01)", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 }
                 else {
-                    Toast.makeText(NotificacionesActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificacionesCivilActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
         });
     }
-
 }

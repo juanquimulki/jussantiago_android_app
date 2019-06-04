@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.activities;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,6 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+import gov.jussantiago.jmulki.autoconsulta.R;
+import gov.jussantiago.jmulki.autoconsulta.adapters.ExpedienteAdapter;
+import gov.jussantiago.jmulki.autoconsulta.classes.Expediente;
 
 public class ExpedientesActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 

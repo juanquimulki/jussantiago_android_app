@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -6,14 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +25,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import gov.jussantiago.jmulki.autoconsulta.classes.DoubleClickListener;
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+import gov.jussantiago.jmulki.autoconsulta.R;
 
 public class MenuActivity extends AppCompatActivity {
     TextView txtCreditos;
@@ -76,6 +76,17 @@ public class MenuActivity extends AppCompatActivity {
 
     public void notificaciones(View v) {
         abrirActividad(NotificacionesActivity.class);
+    };
+
+    public void avisos(View v) {
+        final Snackbar sb = Snackbar.make(findViewById(android.R.id.content), "Función aún no implementada", Snackbar.LENGTH_LONG);
+        sb.setAction("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sb.dismiss();
+            }
+        });
+        sb.show();
     };
 
     public void datos(View v) {
@@ -169,24 +180,26 @@ public class MenuActivity extends AppCompatActivity {
         return true;
     }
 
-    /*public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item1:
-                Intent i = new Intent(this, Alumnos.class);
-                startActivity(i);
+            case R.id.item_expedientes:
+                abrirActividad(ExpedientesActivity.class);
                 break;
-            case R.id.item2:
-                Intent j = new Intent(this, Porcentajes.class);
-                startActivity(j);
+            case R.id.item_cedulas:
+                abrirActividad(NotificacionesActivity.class);
                 break;
-            case R.id.item3:
-                escribirRegistro();
-                //Intent k = new Intent(this, Registro.class);
-                //startActivity(j);
+            case R.id.item_cedulascivil:
+                abrirActividad(NotificacionesCivilActivity.class);
+                break;
+            case R.id.item_datos:
+                abrirActividad(DatosActivity.class);
+                break;
+            case R.id.item_contacto:
+                abrirActividad(ContactoActivity.class);
                 break;
         }
         return true;
-    }*/
+    }
 
 
 }

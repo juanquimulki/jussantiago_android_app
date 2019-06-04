@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo_autoconsulta"
-    tools:context="gov.jussantiago.jmulki.autoconsulta.MainActivity">
+    tools:context="gov.jussantiago.jmulki.autoconsulta.activities.MainActivity">
 
     <EditText
         android:id="@+id/txtUsuario"
@@ -17,7 +17,7 @@
         android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="Usuario"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

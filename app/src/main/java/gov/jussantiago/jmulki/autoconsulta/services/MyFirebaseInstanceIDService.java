@@ -1,21 +1,21 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.services;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+import gov.jussantiago.jmulki.autoconsulta.R;
 
 /**
  * Created by jmulki on 15/05/2019.
@@ -34,11 +34,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
             // Instance ID token to your app server.
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             Integer codigo = sharedPref.getInt("codigo",0);
+            Integer casillero = sharedPref.getInt("casillero",0);
             String numSerie = sharedPref.getString("numSerie",null);
             String token = sharedPref.getString("token",null);
 
             if (codigo>0) {
-                sendRegistrationToServer(refreshedToken, codigo, numSerie, token);
+                sendRegistrationToServer(refreshedToken, codigo, casillero, numSerie, token);
             }
             else {
                 Log.i("proceso token","sin codigo");
@@ -48,11 +49,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         }
     }
 
-    public void sendRegistrationToServer(final String refreshedToken, Integer codigo, String numSerie, String token) {
+    public void sendRegistrationToServer(final String refreshedToken, Integer codigo, Integer casillero, String numSerie, String token) {
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("codigo", codigo.toString());
+        params.put("casillero", casillero.toString());
         params.put("numserie", numSerie);
         params.put("refreshedToken", refreshedToken);
 

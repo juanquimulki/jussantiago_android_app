@@ -1,6 +1,8 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.classes;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import gov.jussantiago.jmulki.autoconsulta.R;
 
 /**
  * Created by jmulki on 10/05/2019.

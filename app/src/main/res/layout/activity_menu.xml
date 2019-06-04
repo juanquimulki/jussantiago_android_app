@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo_autoconsulta"
-    tools:context="gov.jussantiago.jmulki.autoconsulta.MenuActivity">
+    tools:context="gov.jussantiago.jmulki.autoconsulta.activities.MenuActivity">
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -74,7 +74,8 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:background="@mipmap/btn_avi" />
+                    android:background="@mipmap/btn_avi"
+                    android:onClick="avisos" />
 
                 <Button
                     android:id="@+id/button_img4"

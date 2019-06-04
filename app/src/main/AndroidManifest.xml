@@ -20,23 +20,23 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/fondo_autoconsulta" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExpedientesActivity" />
-        <activity android:name=".MovimientosActivity" />
-        <activity android:name=".DocumentoActivity" />
-        <activity android:name=".NotificacionesActivity" />
-        <activity android:name=".CedulaActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".DatosActivity" />
+        <activity android:name=".activities.ExpedientesActivity" />
+        <activity android:name=".activities.MovimientosActivity" />
+        <activity android:name=".activities.DocumentoActivity" />
+        <activity android:name=".activities.NotificacionesActivity" />
+        <activity android:name=".activities.CedulaActivity" />
+        <activity android:name=".activities.MenuActivity" />
+        <activity android:name=".activities.DatosActivity" />
 
         <service
-            android:name=".MyFirebaseInstanceIDService"
+            android:name=".services.MyFirebaseInstanceIDService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -44,7 +44,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".services.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -52,7 +52,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".CedulaCivilActivity"></activity>
+        <activity android:name=".activities.CedulaCivilActivity" />
+        <activity android:name=".activities.ContactoActivity" />
+        <activity android:name=".activities.NotificacionesCivilActivity"></activity>
     </application>
 
 </manifest>

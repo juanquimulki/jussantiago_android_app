@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+import gov.jussantiago.jmulki.autoconsulta.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText txtUsuario;
@@ -41,45 +44,47 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtVersion;
     private Button btnLogin;
 
+    private String usuario,clave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setEnabled(false);
-
-        txtVersion = findViewById(R.id.txtVersion);
-        try {
-            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionName = pInfo.versionName;
-            versionCode = pInfo.versionCode;
-            txtVersion.setText(getString(R.string.version) + " " + versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            versionCode = 1;
-        }
-
-        txtUsuario = findViewById(R.id.txtUsuario);
-        txtClave = findViewById(R.id.txtClave);
-        progressBar = findViewById(R.id.progressBar);
-
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String usuario = sharedPref.getString("usuario",null);
-        String clave = sharedPref.getString("clave",null);
+        usuario = sharedPref.getString("usuario",null);
+        clave = sharedPref.getString("clave",null);
 
-        String numSerie = sharedPref.getString("numSerie",null);
-        if (numSerie==null) {
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("numSerie", UUID.randomUUID().toString().replace("-","")).commit();
-            Log.i("proceso token","numero de serie creado");
-        }
-        else
-            Log.i("proceso token","numero de serie ya existe");
+            btnLogin = findViewById(R.id.btnLogin);
+            btnLogin.setEnabled(false);
 
-        txtUsuario.setText(usuario);
-        txtClave.setText(clave);
+            txtVersion = findViewById(R.id.txtVersion);
+            try {
+                PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+                versionName = pInfo.versionName;
+                versionCode = pInfo.versionCode;
+                txtVersion.setText(getString(R.string.version) + " " + versionName);
+            } catch (PackageManager.NameNotFoundException e) {
+                versionCode = 1;
+            }
 
-        version();
+            txtUsuario = findViewById(R.id.txtUsuario);
+            txtClave = findViewById(R.id.txtClave);
+            progressBar = findViewById(R.id.progressBar);
+
+            String numSerie = sharedPref.getString("numSerie", null);
+            if (numSerie == null) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("numSerie", UUID.randomUUID().toString().replace("-", "")).commit();
+                Log.i("proceso token", "numero de serie creado");
+            } else
+                Log.i("proceso token", "numero de serie ya existe");
+
+            txtUsuario.setText(usuario);
+            txtClave.setText(clave);
+
+            Log.i("ingreso","entra aqui2");
+            version();
     }
 
     private void version() {
@@ -97,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 hash
         );
 
+        Log.i("íngreso","entra aqui1");
         volley.execute(new ObjetoVolley.VolleyCallback(){
             @Override
             public void onSuccessResponse(JSONObject jsonObject){
@@ -121,7 +127,12 @@ public class MainActivity extends AppCompatActivity {
                             AlertDialog dialog = builder.create();
                             dialog.show();
                         } else {
-                            btnLogin.setEnabled(true);
+                            Log.i("íngreso","entra aquiiiii"+usuario);
+                            if (usuario==null || clave==null)
+                                btnLogin.setEnabled(true);
+                            else {
+                                ingresar(findViewById(android.R.id.content));
+                            }
                         }
                     } catch (JSONException e) {
                     }
@@ -134,73 +145,82 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ingresar(View v) {
-        progressBar.setVisibility(View.VISIBLE);
+        String u = txtUsuario.getText().toString();
+        String c = txtClave.getText().toString();
 
-        String string = getResources().getString(R.string.API_KEY);
-        String hash = new String(Hex.encodeHex(DigestUtils.md5(string)));
+        if (u.isEmpty() || c.isEmpty()) {
+            Toast.makeText(MainActivity.this, "Ingrese todos los datos para identificarse", Toast.LENGTH_SHORT).show();
+        }
+        else {
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("usuario", txtUsuario.getText().toString());
-        params.put("clave", txtClave.getText().toString());
+            progressBar.setVisibility(View.VISIBLE);
 
-        ObjetoVolley volley = new ObjetoVolley(
-                MainActivity.this,
-                getString(R.string.url_login),
-                params,
-                Request.Method.GET,
-                hash
-        );
+            String string = getResources().getString(R.string.API_KEY);
+            String hash = new String(Hex.encodeHex(DigestUtils.md5(string)));
 
-        volley.execute(new ObjetoVolley.VolleyCallback(){
-            @Override
-            public void onSuccessResponse(JSONObject objeto){
-                if (objeto!=null) {
-                    try {
-                        Boolean error = objeto.getBoolean("error");
-                        String mensaje = objeto.getString("message");
-                        if (error)
-                            Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-                        else {
-                            objeto = objeto.getJSONObject("abogado");
-                            String nombre = objeto.getString("nombre");
-                            Integer matricula = objeto.getInt("matricula");
-                            Integer codigo = objeto.getInt("codigo");
-                            Integer casillero = objeto.getInt("casillero");
-                            String token = objeto.getString("token");
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("usuario", txtUsuario.getText().toString());
+            params.put("clave", txtClave.getText().toString());
 
-                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("usuario", txtUsuario.getText().toString());
-                            editor.putString("clave", txtClave.getText().toString());
-                            editor.putString("nombre", nombre);
-                            editor.putInt("matricula", matricula);
-                            editor.putInt("codigo", codigo);
-                            editor.putInt("casillero", casillero);
-                            editor.putString("token", token);
-                            editor.commit();
+            ObjetoVolley volley = new ObjetoVolley(
+                    MainActivity.this,
+                    getString(R.string.url_login),
+                    params,
+                    Request.Method.GET,
+                    hash
+            );
 
-                            String refreshedToken = sharedPref.getString("refreshedToken",null);
-                            if (refreshedToken==null)
+            volley.execute(new ObjetoVolley.VolleyCallback() {
+                @Override
+                public void onSuccessResponse(JSONObject objeto) {
+                    if (objeto != null) {
+                        try {
+                            Boolean error = objeto.getBoolean("error");
+                            String mensaje = objeto.getString("message");
+                            if (error)
+                                Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                            else {
+                                objeto = objeto.getJSONObject("abogado");
+                                String nombre = objeto.getString("nombre");
+                                Integer matricula = objeto.getInt("matricula");
+                                Integer codigo = objeto.getInt("codigo");
+                                Integer casillero = objeto.getInt("casillero");
+                                String token = objeto.getString("token");
+
+                                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("usuario", txtUsuario.getText().toString());
+                                editor.putString("clave", txtClave.getText().toString());
+                                editor.putString("nombre", nombre);
+                                editor.putInt("matricula", matricula);
+                                editor.putInt("codigo", codigo);
+                                editor.putInt("casillero", casillero);
+                                editor.putString("token", token);
+                                editor.commit();
+
+                                //String refreshedToken = sharedPref.getString("refreshedToken", null);
+                                //if (refreshedToken == null)
                                 actualizarToken();
-                            else
-                                Log.i("proceso token","token ya existe");
+                                //else
+                                //    Log.i("proceso token", "token ya existe");
 
+                                progressBar.setVisibility(View.GONE);
+
+                                Toast.makeText(MainActivity.this, getString(R.string.bienvenido), Toast.LENGTH_SHORT).show();
+                                abrirActividad();
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(MainActivity.this, getString(R.string.error) + " (Cód: Main01)", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
-
-                            Toast.makeText(MainActivity.this, getString(R.string.bienvenido), Toast.LENGTH_SHORT).show();
-                            abrirActividad();
                         }
-                    } catch (JSONException e) {
-                        Toast.makeText(MainActivity.this, getString(R.string.error) + " (Cód: Main01)", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 }
-                else {
-                    Toast.makeText(MainActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
+            });
+
+        }
     }
 
     private void actualizarToken() {
@@ -208,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         Integer codigo = sharedPref.getInt("codigo",0);
+        Integer casillero = sharedPref.getInt("casillero",0);
         String token = sharedPref.getString("token",null);
         String numSerie = sharedPref.getString("numSerie",null);
 
@@ -216,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
             Map<String, String> params = new HashMap<String, String>();
             params.put("codigo", codigo.toString());
+            params.put("casillero", casillero.toString());
             params.put("numserie", numSerie);
             params.put("refreshedToken", refreshedToken);
 

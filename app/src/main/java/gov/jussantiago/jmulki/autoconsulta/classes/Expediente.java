@@ -1,4 +1,4 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.classes;
 
 /**
  * Created by jmulki on 17/04/2019.

@@ -1,10 +1,12 @@
-package gov.jussantiago.jmulki.autoconsulta;
+package gov.jussantiago.jmulki.autoconsulta.activities;
 
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,20 +17,25 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CedulaActivity extends AppCompatActivity {
+import gov.jussantiago.jmulki.autoconsulta.classes.ObjetoVolley;
+import gov.jussantiago.jmulki.autoconsulta.R;
 
-    private Integer numero;
+public class CedulaCivilActivity extends AppCompatActivity {
+
+    private Integer nroexpediente;
+    private String observaciones;
     private Integer codigo;
     private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cedula);
+        setContentView(R.layout.activity_cedula_civil);
 
-        this.setTitle(getString(R.string.app_name)+" - Cédula");
+        this.setTitle(getString(R.string.app_name)+" - Cédula Civil");
 
-        numero = Integer.parseInt(getIntent().getExtras().getString("numero"));
+        nroexpediente = Integer.parseInt(getIntent().getExtras().getString("nroexpediente"));
+        observaciones = getIntent().getExtras().getString("observaciones");
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         codigo = sharedPref.getInt("codigo",0);
@@ -38,8 +45,10 @@ public class CedulaActivity extends AppCompatActivity {
     }
 
     private void verArchivo(String archivo) {
-        String pdf = getString(R.string.url_cedulas) + archivo;
-        WebView mWebView=new WebView(CedulaActivity.this);
+        String pdf = getString(R.string.url_firmados) + archivo;
+        Log.i("ruta de archivo",pdf);
+        WebView mWebView=new WebView(CedulaCivilActivity.this);
+        mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(getString(R.string.url_gview) + "&url="+pdf);
         setContentView(mWebView);
@@ -49,12 +58,13 @@ public class CedulaActivity extends AppCompatActivity {
         Toast.makeText(this, getString(R.string.aguarde), Toast.LENGTH_SHORT).show();
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("numero", numero.toString());
         params.put("codigo", codigo.toString());
+        params.put("nroexpediente", nroexpediente.toString());
+        params.put("observaciones", observaciones.replace(" ","%20"));
 
         ObjetoVolley volley = new ObjetoVolley(
-                CedulaActivity.this,
-                getString(R.string.url_cedula),
+                CedulaCivilActivity.this,
+                getString(R.string.url_cedula_civil),
                 params,
                 Request.Method.GET,
                 token
@@ -69,19 +79,18 @@ public class CedulaActivity extends AppCompatActivity {
 
                         if (error) {
                             String mensaje = objeto.getString("message");
-                            Toast.makeText(CedulaActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CedulaCivilActivity.this, mensaje, Toast.LENGTH_SHORT).show();
                         } else {
                             String archivo = objeto.getString("archivo");
                             verArchivo(archivo);
                         }
                     } catch (JSONException e) {
-                        Toast.makeText(CedulaActivity.this, getString(R.string.error)+" (Cód: Ced01)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CedulaCivilActivity.this, getString(R.string.error)+" (Cód: Civ01)", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(CedulaActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CedulaCivilActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 }
