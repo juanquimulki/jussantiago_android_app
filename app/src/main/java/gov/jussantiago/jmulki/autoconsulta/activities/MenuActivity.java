@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -65,6 +66,67 @@ public class MenuActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        mensaje();
+    }
+
+    public void mensaje() {
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        Integer codigo = sharedPref.getInt("codigo",0);
+        String token = sharedPref.getString("token",null);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("codigo", codigo.toString());
+
+        ObjetoVolley volley = new ObjetoVolley(
+                MenuActivity.this,
+                getString(R.string.url_mensaje),
+                params,
+                Request.Method.GET,
+                token
+        );
+
+        volley.execute(new ObjetoVolley.VolleyCallback() {
+            @Override
+            public void onSuccessResponse(JSONObject objeto) {
+                if (objeto != null) {
+                    try {
+                        Boolean error = objeto.getBoolean("error");
+                        if (!error) {
+                            final JSONObject mensaje  = objeto.getJSONObject("mensaje");
+                            String mje = mensaje.getString("mensaje");
+                            Integer id = mensaje.getInt("id");
+                            Integer idactual = sharedPref.getInt("idmensaje",0);
+                            Log.i("mensajess","valores ... "+id.toString()+" "+idactual.toString());
+
+                            if (id!=idactual) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+                                builder.setMessage(mje)
+                                        .setTitle("Mensaje importante...")
+                                        .setNegativeButton("Entendido", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User cancelled the dialog
+                                                SharedPreferences.Editor editor = sharedPref.edit();
+                                                try {
+                                                    Log.i("mensajess","desde web ... "+mensaje.getInt("id"));
+                                                    editor.putInt("idmensaje", mensaje.getInt("id")).commit();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                builder.create().show();
+                            }
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(MenuActivity.this, getString(R.string.error) + " (Cód: Mje01)", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MenuActivity.this, getString(R.string.respuesta_null), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -114,6 +176,7 @@ public class MenuActivity extends AppCompatActivity {
                         editor.remove("codigo").commit();
                         editor.remove("casillero").commit();
                         editor.remove("token").commit();
+                        editor.remove("idmensaje").commit();
                         editor.remove("refreshedToken").commit();
 
                         abrirActividad(MainActivity.class);

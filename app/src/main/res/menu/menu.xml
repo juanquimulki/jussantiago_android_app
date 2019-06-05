@@ -25,6 +25,10 @@
         android:enabled="false"
         android:title="Mis Estadísticas"></item>
     <item
+        android:id="@+id/item_casilleros"
+        android:enabled="false"
+        android:title="Consulta de Casilleros"></item>
+    <item
         android:id="@+id/item_configuracion"
         android:enabled="false"
         android:title="Configuración"></item>

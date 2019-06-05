@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putInt("codigo", codigo);
                                 editor.putInt("casillero", casillero);
                                 editor.putString("token", token);
+                                //editor.putInt("idmensaje", 0);
                                 editor.commit();
 
                                 //String refreshedToken = sharedPref.getString("refreshedToken", null);

@@ -17,6 +17,7 @@
     <string name="url_busqueda">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/busqueda</string>
     <string name="url_login">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/login</string>
     <string name="url_version">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/version</string>
+    <string name="url_mensaje">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/mensaje</string>
     <string name="url_caratula">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/caratula</string>
     <string name="url_movimientos">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/movimientos</string>
     <string name="url_notificaciones">https://oficinavirtual.jussantiago.gov.ar/mobile/index.php/notificaciones</string>
